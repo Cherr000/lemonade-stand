@@ -8,12 +8,26 @@ namespace LemonadeStand
 {
     class Player
     {
+        public Wallet wallet;
+        public Inventory inventory;
         public string name;
 
+        //--------------------------
+        public Player()
+        {
+            wallet = new Wallet();
+            inventory = new Inventory();
+        }
+        //--------------------------
         public void GetPlayerName()
         {
-            Console.WriteLine("\n Enter your player name to start!");
+            Console.Write("\n Player Please Enter Your Name: ");
             name = Console.ReadLine();
+        }
+        public void DisplayWallet()
+        {
+            wallet.GetCash();
+            wallet.GetPricePerCup();
         }
     }
 }

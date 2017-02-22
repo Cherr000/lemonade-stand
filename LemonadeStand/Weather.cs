@@ -8,13 +8,38 @@ namespace LemonadeStand
 {
     class Weather
     {
-        public string choice;
+        Random random;
+        public string WeatherTypes;
+        public double Temperature;
 
-        public void WeatherRandomPick()
+        public Weather()
         {
-            Random random = new Random();
-            List<string> choices = new List<string> { "Rain", "Sunny", "Partly Cloudy", "Sunny With Light Rain", "Cloudy" };
-            choice = choices[random.Next(0, 4)];
+            random = new Random();
+        }
+        public void GetWeatherTemperature()
+        {
+            Temperature = random.Next(50, 101);
+        }
+        public void GetWeatherForecast()
+        {
+            List<string> TypesOfWeather = new List<string> { "Rainy", "Sunny", "Partly Cloudy" };
+            WeatherTypes = TypesOfWeather[random.Next(0, 2)];
+        }
+        public void GetTodayForecast()
+        {
+            Console.WriteLine("\n Today Forecast");
+            GetWeatherForecast();
+            Console.WriteLine($" Weather: {WeatherTypes}");
+            GetWeatherTemperature();
+            Console.WriteLine($" Temperature: {Temperature}° degree");
+        }
+        public void GetNextDayForecast()
+        {
+            Console.WriteLine("\n The Next Day Forecast");
+            GetWeatherForecast();
+            Console.WriteLine($" Weather: {WeatherTypes}");
+            GetWeatherTemperature();
+            Console.WriteLine($" Temperature: {Temperature}");
         }
     }
 }
