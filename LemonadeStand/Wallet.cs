@@ -18,7 +18,7 @@ namespace LemonadeStand
         public Wallet()
         {
             Cash = 20.00;
-            Price = .15;
+            Price = .25;
             CashEarnToday = 0;
             CashSpentToday = 0;
             TotalCashAmountToday = 0;

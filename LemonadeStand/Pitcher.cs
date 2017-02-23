@@ -1,0 +1,6 @@
+﻿namespace LemonadeStand
+{
+    class Pitcher
+    {
+    }
+}

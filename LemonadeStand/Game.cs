@@ -13,7 +13,6 @@ namespace LemonadeStand
         Day day;
         Customer customer;
         Weather weather;
-        bool Meun;
         //---------------------------
         public Game()
         {
@@ -96,7 +95,8 @@ namespace LemonadeStand
                     break;
                 case "2":
                     // method to go shopping at the store
-                    Console.WriteLine();
+                    store.DisplayStore(player);
+                    DisplayMenu();
                     break;
                 case "3":
                     // method to change price
@@ -105,6 +105,8 @@ namespace LemonadeStand
                     break;
                 case "4":
                     // method to see inventory
+                    player.inventory.DisplayInventory();
+                    DisplayMenu();
                     break;
                 case "5":
                     // method to see cash flow

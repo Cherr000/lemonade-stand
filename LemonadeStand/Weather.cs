@@ -18,7 +18,7 @@ namespace LemonadeStand
         }
         public void GetWeatherTemperature()
         {
-            Temperature = random.Next(50, 101);
+            Temperature = random.Next(50, 90);
         }
         public void GetWeatherForecast()
         {
@@ -33,13 +33,17 @@ namespace LemonadeStand
             GetWeatherTemperature();
             Console.WriteLine($" Temperature: {Temperature}° degree");
         }
-        public void GetNextDayForecast()
-        {
-            Console.WriteLine("\n The Next Day Forecast");
-            GetWeatherForecast();
-            Console.WriteLine($" Weather: {WeatherTypes}");
-            GetWeatherTemperature();
-            Console.WriteLine($" Temperature: {Temperature}");
-        }
+
+
+
+
+        //public void GetNextDayForecast()
+        //{
+        //    Console.WriteLine("\n The Next Day Forecast");
+        //    GetWeatherForecast();
+        //    Console.WriteLine($" Weather: {WeatherTypes}");
+        //    GetWeatherTemperature();
+        //    Console.WriteLine($" Temperature: {Temperature}");
+        //}
     }
 }
