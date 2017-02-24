@@ -8,9 +8,19 @@ namespace LemonadeStand
 {
     class Day
     {
-        public void GetGamePlayDay()
+        Weather weather;
+        public Day()
         {
-            for (int i = 0; i < 7; i++) ;
+            weather = new Weather();
+        }
+        public void Day1()
+        {
+        }
+
+        public void DisplayWeather()
+        {
+            weather.GetTodayForecast();
+            Console.WriteLine(" ------------------------");
         }
     }
 }

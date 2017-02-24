@@ -12,7 +12,6 @@ namespace LemonadeStand
         Store store;
         Day day;
         Customer customer;
-        Weather weather;
         //---------------------------
         public Game()
         {
@@ -20,7 +19,6 @@ namespace LemonadeStand
             store = new Store();
             day = new Day();
             customer = new Customer();
-            weather = new Weather();
         }
         //---------------------------
         public void RunGame()
@@ -33,9 +31,7 @@ namespace LemonadeStand
             // Have Player Enter There Name
             player.GetPlayerName();
             Console.Clear();
-            // Display Game Title and Weather
-            DisplayGameTitle();
-            DisplayWeather();
+            // Display Game Title
             // player menu
             DisplayMenu();
             // End The Game
@@ -63,7 +59,7 @@ namespace LemonadeStand
                     break;
             }
         }
-        private void DisplayGameTitle()
+        public void DisplayGameTitle()
         {
             Console.WriteLine("\n ------------------");
             Console.WriteLine(" | Lemonade Stand |");
@@ -76,22 +72,18 @@ namespace LemonadeStand
             Console.WriteLine("\n   You will have 7 day to make as much money as you can. By the end of the week you’ll see how much profit you made. \n You’ll also have complete control over your business, including pricing, quality control, inventory control, and \n purchasing supplies. Buy your ingredients, set your recipe, and start selling. One more thing you should know \n the forecast will affect your business.");
             Console.WriteLine("\n --------------------------------------------------------------------------------------------------------------------");
         }
-        private void DisplayWeather()
-        {
-            weather.GetTodayForecast();
-            Console.WriteLine(" ------------------------");
-        }
         private void DisplayMenu()
         {
+            DisplayGameTitle();
             player.wallet.GetPricePerCup();
-            Console.WriteLine(" 3 Lemon, 2 Sugar, and 10 Ice equal to 1 Pitchers. 1 Pitchers can serve to 5 cup.");
             Console.WriteLine($"\n Hi {player.name} Will You Like To:");
             Console.Write(" 1 = Start Day, 2 = Store, 3 = Change Price, \n 4 = See Inventory, 5 = Cash, 6 = Quit: ");
             string choice = Console.ReadLine();
             switch (choice)
             {
                 case "1":
-                    // method to start the day
+                    Console.Clear();
+                    day.Day1();
                     break;
                 case "2":
                     // method to go shopping at the store
