@@ -40,15 +40,18 @@ namespace Lemonade
             for (int i = 0; i < day.days; i++)
             {
                 player.inventory.ResetInventory();
+                player.recipe = new Recipe();
+                player.LemonadePrice = .15;
                 DisplayMenu();
             }
+            RestartGame();
 
         }
         private void RestartGame()
         {
             gameInfo.ToClearScreen();
             gameInfo.DisplayGameTitle();
-            Console.WriteLine("\n Will You Like To Rreplay The Game");
+            Console.WriteLine("\n Will You Like To Replay The Game");
             Console.WriteLine(" [Y]-Yes  ||  [N]");
             Console.Write(" Enter Input Here: ");
             string choice = Console.ReadLine().ToLower();
@@ -58,7 +61,7 @@ namespace Lemonade
                     StartGame();
                     break;
                 case "n":
-                    Console.WriteLine();
+                    Environment.Exit(0);
                     break;
                 default:
                     RestartGame();
@@ -69,6 +72,7 @@ namespace Lemonade
         {
             gameInfo.ToClearScreen();
             gameInfo.DisplayGameTitle();
+            gameInfo.DisplayFastRule();
             Console.WriteLine($"\n Hi {player.playerName} Will You Like To:");
             Console.WriteLine("\n 1 = Start Day, 2 = Store, 3 = Change Lemonade Price/Recipe, \n 4 = See Inventory, 5 = Cash, 6 = Quit");
             Console.Write(" Enter Number Here: ");

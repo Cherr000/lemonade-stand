@@ -42,22 +42,13 @@ namespace Lemonade
             switch (ChooseLetter)
             {
                 case "1":
-                    Console.WriteLine("\n How Many Lemon Will You Like To Use?");
-                    Console.Write(" Enter Number Here: ");
-                    recipe.recipeLemon = int.Parse(Console.ReadLine());
-                    MakeRecipeDisplay();
+                    InputLemon();
                     break;
                 case "2":
-                    Console.WriteLine("\n How Many Sugar Cube Will You Like To Use?");
-                    Console.Write(" Enter Number Here: ");
-                    recipe.recipeSugar = int.Parse(Console.ReadLine());
-                    MakeRecipeDisplay();
+                    InputSugar();
                     break;
                 case "3":
-                    Console.WriteLine("\n How Many Ice Cube Will You Like To Use?");
-                    Console.Write(" Enter Number Here: ");
-                    recipe.recipeIce = int.Parse(Console.ReadLine());
-                    MakeRecipeDisplay();
+                    InputIce();
                     break;
                 case "4":
                     break;
@@ -67,6 +58,51 @@ namespace Lemonade
             }
 
             inventory.MakePitcher(recipe);
+        }
+        public void InputLemon()
+        {
+            try
+            {
+                Console.WriteLine("\n How Many Lemon Will You Like To Use?");
+                Console.Write(" Enter Number Here: ");
+                recipe.recipeLemon = int.Parse(Console.ReadLine());
+                MakeRecipeDisplay();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(" Please Enter A Number");
+                InputLemon();
+            }
+        }
+        public void InputSugar()
+        {
+            try
+            {
+                Console.WriteLine("\n How Many Sugar Cube Will You Like To Use?");
+                Console.Write(" Enter Number Here: ");
+                recipe.recipeSugar = int.Parse(Console.ReadLine());
+                MakeRecipeDisplay();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(" Please Enter A Number");
+                InputSugar();
+            }
+        }
+        public void InputIce()
+        {
+            try
+            {
+                Console.WriteLine("\n How Many Ice Cube Will You Like To Use?");
+                Console.Write(" Enter Number Here: ");
+                recipe.recipeIce = int.Parse(Console.ReadLine());
+                MakeRecipeDisplay();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(" Please Enter A Number");
+                InputIce();
+            }
         }
         public void DisplayCashFlow()
         {
@@ -102,7 +138,6 @@ namespace Lemonade
                     GetChange(gameInfo);
                     break;
                 case "3":
-                    gameInfo.ToContinue();
                     break;
                 default:
                     Console.WriteLine("\n Invalid Option");
@@ -121,23 +156,21 @@ namespace Lemonade
             Console.WriteLine($"\n {playerName}, Choose Your Difficulty Level");
             Console.WriteLine(" [1]-Easy  [2]-Medium  [3]-Hard");
             Console.Write(" Please Enter Number Here: ");
-            int NumberChoice = int.Parse(Console.ReadLine());
-            if (NumberChoice == 1)
+            string NumberChoice = Console.ReadLine();
+            switch (NumberChoice)
             {
-                Bank = CashToBank.Next(10, 20);
-            }
-            else if (NumberChoice == 2)
-            {
-                Bank = CashToBank.Next(5, 10);
-            }
-            else if (NumberChoice == 3)
-            {
-                Bank = CashToBank.Next(3, 6);
-            }
-            else
-            {
-                Console.WriteLine(" Wrong Input Please Retry");
-                DisplayDifficultyOption();
+                case "1":
+                    Bank = CashToBank.Next(10, 20);
+                    break;
+                case "2":
+                    Bank = CashToBank.Next(5, 10);
+                    break;
+                case "3":
+                    Bank = CashToBank.Next(3, 6);
+                    break;
+                default:
+                    DisplayDifficultyOption();
+                    break;
             }
         }
         public void GetLemonadePrice()
@@ -155,19 +188,7 @@ namespace Lemonade
                 case "y":
                     do
                     {
-                        Console.WriteLine(" Enter The Price You Want To Set To, Your Price Max Is $2.00.");
-                        Console.Write(" Enter New Price Here: ");
-                        LemonadePrice = double.Parse(Console.ReadLine());
-                        if (LemonadePrice >= 0 && LemonadePrice <= 2.00)
-                        {
-                            Console.WriteLine("\n Press Enter To Exit");
-                            Console.ReadLine();
-                            Console.Clear();
-                        }
-                        else
-                        {
-                            Console.WriteLine("Price Max Set Is $2.00");
-                        }
+                       ChangePrice();
                     } while (LemonadePrice > 2.00);
                     break;
                 case "n":
@@ -179,6 +200,30 @@ namespace Lemonade
                     Console.WriteLine(" That Was Not A Option");
                     ChangeLemonadePrice();
                     break;
+            }
+        }
+        public void ChangePrice()
+        {
+            Console.WriteLine(" Enter The Price You Want To Set To, Your Price Max Is $2.00.");
+            Console.Write(" Enter New Price Here: ");
+            try
+            {
+                LemonadePrice = double.Parse(Console.ReadLine());
+                if (LemonadePrice >= 0 && LemonadePrice <= 2.00)
+                {
+                    Console.WriteLine("\n Press Enter To Exit");
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+                else
+                {
+                    Console.WriteLine("Price Max Set Is $2.00");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(" Please Enter A Number");
+                ChangePrice();
             }
         }
         public void GetPlayerName()

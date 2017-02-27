@@ -21,7 +21,16 @@ namespace Lemonade
         {
             Console.WriteLine("\n How Many Day Do You Want To Play?");
             Console.Write(" Enter Number Here: ");
-            days = int.Parse(Console.ReadLine());
+            try
+            {
+                days = int.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(" Please Enter A Number");
+                SetDayPlay();
+            }
+
         }
         public void GetTodayForecast()
         {

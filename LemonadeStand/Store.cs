@@ -76,54 +76,77 @@ namespace Lemonade
         }
         public void BuyLemon(Player player)
         {
-            int LemonAmount = int.Parse(Console.ReadLine());
-
-            if (player.Bank < LemonAmount * Lemon)
+            try
             {
-                Console.WriteLine(" Sorry Not Enough Money");
-            }
-            else if (player.Bank >= LemonAmount * Lemon)
-            {
-                for (int i = 0; i < LemonAmount; i++)
+                int LemonAmount = int.Parse(Console.ReadLine());
+                if (player.Bank < LemonAmount * Lemon)
                 {
-                    player.inventory.AddLemon();
+                    Console.WriteLine(" Sorry Not Enough Money");
                 }
-                LemonPriceTotal = LemonAmount * Lemon;
-                player.Bank = player.Bank - LemonPriceTotal;
+                else if (player.Bank >= LemonAmount * Lemon)
+                {
+                    for (int i = 0; i < LemonAmount; i++)
+                    {
+                        player.inventory.AddLemon();
+                    }
+                    LemonPriceTotal = LemonAmount * Lemon;
+                    player.Bank = player.Bank - LemonPriceTotal;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(" Please Enter A Number");
+                BuyLemon(player);
             }
         }
         public void BuySugar(Player player)
         {
-            int SugarAmount = int.Parse(Console.ReadLine());
-            if (player.Bank < SugarAmount * Sugar)
+            try
             {
-                Console.WriteLine(" Sorry Not Enough Money");
-            }
-            else if (player.Bank >= SugarAmount * Sugar)
-            {
-                for (int i = 0; i < SugarAmount; i++)
+                int SugarAmount = int.Parse(Console.ReadLine());
+                if (player.Bank < SugarAmount * Sugar)
                 {
-                    player.inventory.AddSugar();
+                    Console.WriteLine(" Sorry Not Enough Money");
                 }
-                SugarPriceTotal = SugarAmount * Sugar;
-                player.Bank = player.Bank - SugarPriceTotal;
+                else if (player.Bank >= SugarAmount * Sugar)
+                {
+                    for (int i = 0; i < SugarAmount; i++)
+                    {
+                        player.inventory.AddSugar();
+                    }
+                    SugarPriceTotal = SugarAmount * Sugar;
+                    player.Bank = player.Bank - SugarPriceTotal;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(" Please Enter A Number");
+                BuyLemon(player);
             }
         }
         public void BuyIce(Player player)
         {
-            int IceAmount = int.Parse(Console.ReadLine());
-            if (player.Bank < IceAmount * Ice)
+            try
             {
-                Console.WriteLine(" Sorry Not Enough Money");
-            }
-            else if (player.Bank >= IceAmount * Ice)
-            {
-                for (int i = 0; i < IceAmount; i++)
+                int IceAmount = int.Parse(Console.ReadLine());
+                if (player.Bank < IceAmount * Ice)
                 {
-                    player.inventory.AddIce();
+                    Console.WriteLine(" Sorry Not Enough Money");
                 }
-                IcePriceTotal = IceAmount * Ice;
-                player.Bank = player.Bank - IcePriceTotal;
+                else if (player.Bank >= IceAmount * Ice)
+                {
+                    for (int i = 0; i < IceAmount; i++)
+                    {
+                        player.inventory.AddIce();
+                    }
+                    IcePriceTotal = IceAmount * Ice;
+                    player.Bank = player.Bank - IcePriceTotal;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(" Please Enter A Number");
+                BuyLemon(player);
             }
         }
         public void TotalItemBuy(Player player)

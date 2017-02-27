@@ -34,6 +34,10 @@ namespace Lemonade
             Console.WriteLine(" | Lemonade Stand |");
             Console.WriteLine(" ------------------");
         }
+        public void DisplayFastRule()
+        {
+            Console.WriteLine("\n Before You Start The Day Please Buy Your Ingredient And Set Your Price And Recipe");
+        }
         public void DisplayQuitGame()
         {
             Console.Write("\n Are You Sure You Want To Quit \n   Y = Yes | N = NO: ");
