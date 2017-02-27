@@ -15,110 +15,121 @@ namespace LemonadeStand
         public double SugarPriceTotal;
         public double IcePriceTotal;
         public double TotalAllItem;
-        //---------------------
         public Store()
         {
-            Lemon = .20;
-            Sugar = .05;
-            Ice = .05;
+            Lemon = .25;
+            Sugar = .25;
+            Ice = .25;
             LemonPriceTotal = 0;
             SugarPriceTotal = 0;
             IcePriceTotal = 0;
             TotalAllItem = 0;
         }
-        //---------------------
-        public void DisplayStore(Player player)
+        public void GetStoreName(UserInterface gameInfo, Player player)
         {
-            Console.WriteLine(" --------------------------------------------");
-            Console.WriteLine("\n 3 Lemon, 2 Sugar, and 10 Ice equal to 1 Pitchers. 1 Pitchers can serve to 5 cup.");
-            Console.WriteLine(" What Will You Like To Buy");
-            Console.WriteLine(" 1 = Lemon, 2 = Sugar, 3 = Ice, 4 = Exit Store");
+            gameInfo.DisplayGameTitle();
+            Console.WriteLine("\n Welcome To Pick-n-Buy");
+            Console.WriteLine(" ---------------------");
+            Console.WriteLine($" Lemon Price ${Lemon.ToString("0.00")}  |  Sugar Cube Price ${Sugar.ToString("0.00")}  |  Ice Cube Price ${Ice.ToString("0.00")}");
+            Console.WriteLine(" ---------------------------------------------------------------------");
+            Console.WriteLine($"\n You Have {player.inventory.lemon.Count} Lemon");
+            Console.WriteLine($" You Have {player.inventory.sugar.Count} Sugar Cube");
+            Console.WriteLine($" You Have {player.inventory.ice.Count} Ice Cube");
+        }
+        public void GoShopping(Player player, UserInterface gameInfo)
+        {
+            gameInfo.ToClearScreen();
+            GetStoreName(gameInfo, player);
+            Console.WriteLine($"\n Bank ${player.Bank.ToString("0.00")}");
+            Console.WriteLine(" What will you like to buy?");
+            Console.WriteLine(" [1] Lemon  [2] Sugar  [3] Ice  [4] Checkout/EXit");
+            Console.Write(" Enter Number Here: ");
             string Choice = Console.ReadLine();
             switch (Choice)
             {
                 case "1":
-                    Console.WriteLine(" How Many Lemon Do You Want?");
-                    AddLemonInventory(player);
-                    Console.WriteLine($"Your Lemon Total ${LemonPriceTotal.ToString("0.00")}");
-                    DisplayStore(player);
+                    Console.WriteLine("\n How Many Lemon Do You Want?");
+                    BuyLemon(player);
+                    GoShopping(player, gameInfo);
                     break;
                 case "2":
-                    Console.WriteLine(" How Many Sugar Cube Do You Want?");
-                    AddSugarInventory(player);
-                    Console.WriteLine($" Your Sugar Cube Total ${SugarPriceTotal.ToString("0.00")}");
-                    DisplayStore(player);
+                    Console.WriteLine("\n How Many Sugar Cube Do You Want?");
+                    BuySugar(player);
+                    GoShopping(player, gameInfo);
                     break;
                 case "3":
-                    Console.WriteLine(" How Many Ice Cube Do You Want?");
-                    AddIceInventory(player);
-                    Console.WriteLine($" Your Ice Cube Total ${IcePriceTotal.ToString("0.00")}");
-                    DisplayStore(player);
+                    Console.WriteLine("\n How Many Ice Cube Do You Want?");
+                    BuyIce(player);
+                    GoShopping(player, gameInfo);
                     break;
                 case "4":
-                    TotalItem(player);
-                    Console.WriteLine($" Your Total Is ${TotalAllItem.ToString("0.00")}");
+                    TotalItemBuy(player);
+                    Console.WriteLine($"\n Your Total Is ${TotalAllItem.ToString("0.00")}");
                     Console.WriteLine(" Press Enter To Buy");
                     Console.ReadLine();
-                    Console.Clear();
                     break;
                 default:
-                    Console.WriteLine(" That Was Not A Option");
-                    DisplayStore(player);
+                    Console.WriteLine(" Invalid Option");
+                    GoShopping(player, gameInfo);
                     break;
             }
         }
-        public void AddLemonInventory(Player player)
+        public void BuyLemon(Player player)
         {
             int LemonAmount = int.Parse(Console.ReadLine());
-            if (player.wallet.Cash < LemonAmount * Lemon)
+
+            if (player.Bank < LemonAmount * Lemon)
             {
                 Console.WriteLine(" Sorry Not Enough Money");
             }
-            else if (player.wallet.Cash >= LemonAmount * Lemon)
+            else if (player.Bank >= LemonAmount * Lemon)
             {
                 for (int i = 0; i < LemonAmount; i++)
                 {
                     player.inventory.AddLemon();
                 }
+                LemonPriceTotal = LemonAmount * Lemon;
+                player.Bank = player.Bank - LemonPriceTotal;
             }
-            LemonPriceTotal = LemonAmount * Lemon;
         }
-        public void AddSugarInventory(Player player)
+        public void BuySugar(Player player)
         {
             int SugarAmount = int.Parse(Console.ReadLine());
-            if (player.wallet.Cash < SugarAmount * Sugar)
+            if (player.Bank < SugarAmount * Sugar)
             {
                 Console.WriteLine(" Sorry Not Enough Money");
             }
-            else if (player.wallet.Cash >= SugarAmount * Sugar)
+            else if (player.Bank >= SugarAmount * Sugar)
             {
                 for (int i = 0; i < SugarAmount; i++)
                 {
                     player.inventory.AddSugar();
                 }
+                SugarPriceTotal = SugarAmount * Sugar;
+                player.Bank = player.Bank - SugarPriceTotal;
             }
-            SugarPriceTotal = SugarAmount * Sugar;
         }
-        public void AddIceInventory(Player player)
+        public void BuyIce(Player player)
         {
             int IceAmount = int.Parse(Console.ReadLine());
-            if (player.wallet.Cash < IceAmount * Ice)
+            if (player.Bank < IceAmount * Ice)
             {
                 Console.WriteLine(" Sorry Not Enough Money");
             }
-            else if (player.wallet.Cash >= IceAmount * Ice)
+            else if (player.Bank >= IceAmount * Ice)
             {
                 for (int i = 0; i < IceAmount; i++)
                 {
                     player.inventory.AddIce();
                 }
+                IcePriceTotal = IceAmount * Ice;
+                player.Bank = player.Bank - IcePriceTotal;
             }
-            IcePriceTotal = IceAmount * Ice;
         }
-        public void TotalItem(Player player)
+        public void TotalItemBuy(Player player)
         {
             TotalAllItem = LemonPriceTotal + SugarPriceTotal + IcePriceTotal;
-            player.wallet.CashSpentToday = TotalAllItem;
+            player.Cashspend = TotalAllItem + player.Cashspend;
         }
     }
 }

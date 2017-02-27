@@ -12,23 +12,38 @@ namespace LemonadeStand
         public List<Sugar> sugar;
         public List<Ice> ice;
         public List<Pitcher> pitcher;
+        public int lemonadeCup;
         public Inventory()
         {
             lemon = new List<Lemon>();
             sugar = new List<Sugar>();
             ice = new List<Ice>();
             pitcher = new List<Pitcher>();
+            lemonadeCup = 0;
         }
+        public void ResetInventory()
+        {
+            lemon.Clear();
+            sugar.Clear();
+            ice.Clear();
+            pitcher.Clear();
+        }
+
         public void DisplayInventory()
-        {            
+        {
             Console.WriteLine($" You Have {lemon.Count} Lemon");
             Console.WriteLine($" You Have {sugar.Count} Sugar Cube");
             Console.WriteLine($" You Have {ice.Count} Ice Cube");
-            PitcherMade();
             Console.WriteLine($" You Have {pitcher.Count} Pitcher");
-            Console.WriteLine("\n Press Enter To Exit");
+            GetPitcherToFiveCup();
+            Console.WriteLine($" You Have {lemonadeCup} Cups Fill With Lemonade");
+            Console.WriteLine("\n Press Enter To Continue");
             Console.ReadLine();
-            Console.Clear();
+        }
+        public void DisplayPitcherMade()
+        {
+            Console.WriteLine($"\n You Have {pitcher.Count} Pitcher");
+            Console.ReadLine();
         }
         public void AddLemon()
         {
@@ -46,26 +61,28 @@ namespace LemonadeStand
         {
             pitcher.Add(new Pitcher());
         }
-        //Console.WriteLine(" 3 Lemon, 2 Sugar, and 10 Ice equal to 1 Pitchers. 1 Pitchers can serve to 5 cup.");
-        public void PitcherMade()
+        public void MakePitcher(Recipe recipe)
         {
-            while (lemon.Count >= 3 && sugar.Count >= 2 && ice.Count >= 10)
+            while (lemon.Count >= recipe.recipeLemon && sugar.Count >= recipe.recipeSugar && ice.Count >= recipe.recipeIce)
             {
-                for (int a = 0; a < 3; a++)
+                for (int a = 0; a < recipe.recipeLemon; a++)
                 {
                     lemon.RemoveAt(0);
                 }
-                for (int b = 0; b < 2; b++)
+                for (int b = 0; b < recipe.recipeSugar; b++)
                 {
                     sugar.RemoveAt(0);
                 }
-                for (int c = 0; c < 10; c++)
+                for (int c = 0; c < recipe.recipeIce; c++)
                 {
                     ice.RemoveAt(0);
                 }
                 AddPitcher();
             }
         }
+        public void GetPitcherToFiveCup()
+        {
+            lemonadeCup = pitcher.Count * 5;
+        }
     }
 }
-

@@ -1,13 +1,12 @@
-﻿namespace LemonadeStand
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace LemonadeStand
 {
     class Lemon
     {
-        public double LemonPrice;
-        public double LemonAmount;
-        public Lemon()
-        {
-            LemonAmount = 1;
-            LemonPrice = .10;
-        }
     }
 }

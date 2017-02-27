@@ -8,110 +8,120 @@ namespace LemonadeStand
 {
     class Game
     {
-        Player player;
-        Store store;
-        Day day;
-        Customer customer;
-        //---------------------------
+        public Player player;
+        public Store store;
+        public UserInterface gameInfo;
+        public Day day;
+
         public Game()
         {
             player = new Player();
             store = new Store();
+            gameInfo = new UserInterface();
             day = new Day();
-            customer = new Customer();
         }
-        //---------------------------
-        public void RunGame()
+        public void StartGame()
         {
-            // Make a Welcome Screen
-            DisplayWelcomeScreen();
-            // Game Tilte And Rule
-            DisplayGameTitle();
-            DisplayGameRule();
-            // Have Player Enter There Name
+            gameInfo.GetWelcome();
+            gameInfo.GetRule();
             player.GetPlayerName();
-            Console.Clear();
-            // Display Game Title
-            // player menu
-            DisplayMenu();
-            // End The Game
+            gameInfo.ToContinue();
+            gameInfo.ToClearScreen();
+            gameInfo.DisplayGameTitle();
+            player.DisplayDifficultyOption();
+            player.GetBankTotal();
+            gameInfo.ToContinue();
+            gameInfo.ToClearScreen();
+            gameInfo.DisplayGameTitle();
+            day.SetDayPlay();
+            gameInfo.ToContinue();
+            gameInfo.ToClearScreen();
+            // loop
+            for (int i = 0; i < day.days; i++)
+            {
+                player.inventory.ResetInventory();
+                DisplayMenu();
+            }
+
         }
-        private void DisplayWelcomeScreen()
+        private void RestartGame()
         {
-            Console.WriteLine("\n Welcome To The Lemonade Stand Game");
-            Console.WriteLine(" ----------------------------------");
-        }
-        private void DisplayPlayOption()
-        {
-            Console.WriteLine("\n Are You Sure You Want To Quit \n   Y = Yes | N = NO");
-            string playChoice = Console.ReadLine().ToLower();
-            switch (playChoice)
+            gameInfo.ToClearScreen();
+            gameInfo.DisplayGameTitle();
+            Console.WriteLine("\n Will You Like To Rreplay The Game");
+            Console.WriteLine(" [Y]-Yes  ||  [N]");
+            Console.Write(" Enter Input Here: ");
+            string choice = Console.ReadLine().ToLower();
+            switch (choice)
             {
                 case "y":
-                    Environment.Exit(0);
+                    StartGame();
                     break;
                 case "n":
-                    Console.Clear();
+                    Console.WriteLine();
                     break;
                 default:
-                    Console.WriteLine(" That Was Not A Option");
-                    DisplayPlayOption();
+                    RestartGame();
                     break;
             }
         }
-        public void DisplayGameTitle()
-        {
-            Console.WriteLine("\n ------------------");
-            Console.WriteLine(" | Lemonade Stand |");
-            Console.WriteLine(" ------------------");
-        }
-        private void DisplayGameRule()
-        {
-            Console.WriteLine("\n Introduction ");
-            Console.WriteLine(" ____________");
-            Console.WriteLine("\n   You will have 7 day to make as much money as you can. By the end of the week you’ll see how much profit you made. \n You’ll also have complete control over your business, including pricing, quality control, inventory control, and \n purchasing supplies. Buy your ingredients, set your recipe, and start selling. One more thing you should know \n the forecast will affect your business.");
-            Console.WriteLine("\n --------------------------------------------------------------------------------------------------------------------");
-        }
         private void DisplayMenu()
         {
-            DisplayGameTitle();
-            player.wallet.GetPricePerCup();
-            Console.WriteLine($"\n Hi {player.name} Will You Like To:");
-            Console.Write(" 1 = Start Day, 2 = Store, 3 = Change Price, \n 4 = See Inventory, 5 = Cash, 6 = Quit: ");
+            gameInfo.ToClearScreen();
+            gameInfo.DisplayGameTitle();
+            Console.WriteLine($"\n Hi {player.playerName} Will You Like To:");
+            Console.WriteLine("\n 1 = Start Day, 2 = Store, 3 = Change Lemonade Price/Recipe, \n 4 = See Inventory, 5 = Cash, 6 = Quit");
+            Console.Write(" Enter Number Here: ");
             string choice = Console.ReadLine();
             switch (choice)
             {
                 case "1":
-                    Console.Clear();
-                    day.Day1();
+                    // start the game day
+                    gameInfo.ToClearScreen();
+                    gameInfo.DisplayGameTitle();
+                    day.GetTodayForecast();
+                    Console.WriteLine(" You'll Get One Last Time To Change Your Recipe And Price");
+                    player.GetChange(gameInfo);
+                    day.customer.CustomerBuyer(day.weather, player);
+                    gameInfo.ToClearScreen();
+                    gameInfo.DisplayGameTitle();
+                    player.DisplayCashFlow();
+                    Console.WriteLine(" For Nex Day");
+                    Console.ReadLine();
+                    gameInfo.ToContinue();
                     break;
                 case "2":
                     // method to go shopping at the store
-                    store.DisplayStore(player);
+                    store.GoShopping(player, gameInfo);
+                    gameInfo.ToClearScreen();
                     DisplayMenu();
                     break;
                 case "3":
-                    // method to change price
-                    player.wallet.ChangeLemonadePrice();
+                    // method to change price and recipe
+                    player.GetChange(gameInfo);
+                    gameInfo.ToClearScreen();
                     DisplayMenu();
                     break;
                 case "4":
                     // method to see inventory
                     player.inventory.DisplayInventory();
+                    gameInfo.ToClearScreen();
                     DisplayMenu();
                     break;
                 case "5":
                     // method to see cash flow
-                    player.wallet.GetCash();
+                    player.DisplayCashFlow();
+                    gameInfo.ToClearScreen();
                     DisplayMenu();
                     break;
                 case "6":
                     //method to quit game
-                    DisplayPlayOption();
+                    gameInfo.DisplayQuitGame();
                     DisplayMenu();
                     break;
                 default:
                     Console.WriteLine(" Invalid Answer");
+                    gameInfo.ToContinue();
                     DisplayMenu();
                     break;
             }
